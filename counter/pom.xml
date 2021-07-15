@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.fluffy</groupId>
 	<artifactId>counter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.2</version>
 	<name>counter</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -55,6 +55,25 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jkube</groupId>
+				<artifactId>kubernetes-maven-plugin</artifactId>
+				<version>1.3.0</version>
+				<configuration>
+					<images>
+						<image>
+							<name>docker.io/roliiii/counter:${project.version}</name>
+							<build>
+								<contextDir>${project.basedir}/src/main/docker-context-dir</contextDir>
+							</build>
+						</image>
+					</images>
+					<authConfig>
+						<username>${env.DU}</username>
+						<password>${env.DP}</password>
+					</authConfig>
 				</configuration>
 			</plugin>
 		</plugins>
